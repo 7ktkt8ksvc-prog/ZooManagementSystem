@@ -1,35 +1,28 @@
-// Main.java
 public class Main {
+
     public static void main(String[] args) {
-        // Create animals
-        Animal lion = new Animal("Leo", "Lion", 5);
-        Animal elephant = new Animal("Ella", "Elephant", 10);
 
-        // Create zookeepers
-        Zookeeper john = new Zookeeper("John", 7);
-        Zookeeper sarah = new Zookeeper("Sarah", 3);
+        // Create objects
+        Animal animal1 = new Animal("Leo", "Lion", 5);
+        Animal animal2 = new Animal("Molly", "Elephant", 10);
 
-        // Create zoo
-        Zoo cityZoo = new Zoo("City Zoo");
+        Zookeeper keeper1 = new Zookeeper("John", 7);
+        Zookeeper keeper2 = new Zookeeper("Anna", 3);
 
-        // Add animals and zookeepers
-        cityZoo.addAnimal(lion);
-        cityZoo.addAnimal(elephant);
-        cityZoo.addZookeeper(john);
-        cityZoo.addZookeeper(sarah);
+        Zoo zoo = new Zoo("Almaty Zoo", "Kazakhstan");
 
-        // Display information
-        cityZoo.showAnimals();
-        cityZoo.showZookeepers();
+        // Output to console
+        zoo.displayInfo();
+        animal1.displayInfo();
+        animal2.displayInfo();
+        keeper1.displayInfo();
+        keeper2.displayInfo();
 
-        // Compare animals (example: by age)
-        System.out.println("\nComparing animals by age:");
-        if (lion.getAge() > elephant.getAge()) {
-            System.out.println(lion.getName() + " is older than " + elephant.getName());
-        } else if (lion.getAge() < elephant.getAge()) {
-            System.out.println(elephant.getName() + " is older than " + lion.getName());
+        // Compare animals by age
+        if (animal1.getAge() > animal2.getAge()) {
+            System.out.println(animal1.getName() + " is older than " + animal2.getName());
         } else {
-            System.out.println(lion.getName() + " and " + elephant.getName() + " are the same age");
+            System.out.println(animal2.getName() + " is older than " + animal1.getName());
         }
     }
 }

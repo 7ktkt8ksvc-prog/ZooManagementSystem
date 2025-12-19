@@ -1,41 +1,33 @@
-// Zoo.java
-import java.util.ArrayList;
-
 public class Zoo {
-    private String name;
-    private ArrayList<Animal> animals;
-    private ArrayList<Zookeeper> zookeepers;
+
+    private String zooName;
+    private String location;
 
     // Constructor
-    public Zoo(String name) {
-        this.name = name;
-        animals = new ArrayList<>();
-        zookeepers = new ArrayList<>();
+    public Zoo(String zooName, String location) {
+        this.zooName = zooName;
+        this.location = location;
     }
 
-    // Add Animal
-    public void addAnimal(Animal animal) {
-        animals.add(animal);
+    // Getters and Setters
+    public String getZooName() {
+        return zooName;
     }
 
-    // Add Zookeeper
-    public void addZookeeper(Zookeeper zookeeper) {
-        zookeepers.add(zookeeper);
+    public void setZooName(String zooName) {
+        this.zooName = zooName;
     }
 
-    // Display all animals
-    public void showAnimals() {
-        System.out.println("Animals in " + name + ":");
-        for (Animal a : animals) {
-            a.displayInfo();
-        }
+    public String getLocation() {
+        return location;
     }
 
-    // Display all zookeepers
-    public void showZookeepers() {
-        System.out.println("Zookeepers in " + name + ":");
-        for (Zookeeper z : zookeepers) {
-            z.displayInfo();
-        }
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    // Method
+    public void displayInfo() {
+        System.out.println("Zoo: " + zooName + ", Location: " + location);
     }
 }

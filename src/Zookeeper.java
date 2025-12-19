@@ -1,24 +1,33 @@
-// Zookeeper.java
 public class Zookeeper {
+
     private String name;
-    private int experience; // in years
+    private int experienceYears;
 
     // Constructor
-    public Zookeeper(String name, int experience) {
+    public Zookeeper(String name, int experienceYears) {
         this.name = name;
-        this.experience = experience;
+        this.experienceYears = experienceYears;
     }
 
-    // Getters
-    public String getName() { return name; }
-    public int getExperience() { return experience; }
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
 
-    // Setters
-    public void setName(String name) { this.name = name; }
-    public void setExperience(int experience) { this.experience = experience; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    // Method to display info
+    public int getExperienceYears() {
+        return experienceYears;
+    }
+
+    public void setExperienceYears(int experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    // Method
     public void displayInfo() {
-        System.out.println("Zookeeper Name: " + name + ", Experience: " + experience + " years");
+        System.out.println("Zookeeper: " + name + ", Experience: " + experienceYears + " years");
     }
 }
