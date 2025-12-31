@@ -1,33 +1,30 @@
+import animals.Animal;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Zoo {
 
-    private String zooName;
-    private String location;
+    private Set<Animal> animals = new HashSet<>();
 
-    // Constructor
-    public Zoo(String zooName, String location) {
-        this.zooName = zooName;
-        this.location = location;
+    public void addAnimal(Animal animal) {
+        animals.add(animal);
     }
 
-    // Getters and Setters
-    public String getZooName() {
-        return zooName;
+    public List<Animal> searchBySpecies(String species) {
+        return animals.stream()
+                .filter(a -> a.getSpecies().equalsIgnoreCase(species))
+                .collect(Collectors.toList());
     }
 
-    public void setZooName(String zooName) {
-        this.zooName = zooName;
+    public List<Animal> sortByWeight() {
+        return animals.stream()
+                .sorted(Comparator.comparingDouble(Animal::getWeight))
+                .collect(Collectors.toList());
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    // Method
-    public void displayInfo() {
-        System.out.println("Zoo: " + zooName + ", Location: " + location);
+    public List<Animal> filterByAge(int minAge) {
+        return animals.stream()
+                .filter(a -> a.getAge() >= minAge)
+                .collect(Collectors.toList());
     }
 }
