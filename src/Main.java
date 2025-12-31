@@ -1,28 +1,33 @@
+import animals.*;
+import zookeepers.*;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        // Create objects
-        Animal animal1 = new Animal("Leo", "Lion", 5);
-        Animal animal2 = new Animal("Molly", "Elephant", 10);
+        Zoo zoo = new Zoo();
 
-        Zookeeper keeper1 = new Zookeeper("John", 7);
-        Zookeeper keeper2 = new Zookeeper("Anna", 3);
+        Animal lion = new Mammal("Leo", 5, 190);
+        Animal parrot = new Bird("Polly", 2, 1.2);
+        Animal snake = new Reptile("Sly", 4, 15);
 
-        Zoo zoo = new Zoo("Almaty Zoo", "Kazakhstan");
+        zoo.addAnimal(lion);
+        zoo.addAnimal(parrot);
+        zoo.addAnimal(snake);
 
-        // Output to console
-        zoo.displayInfo();
-        animal1.displayInfo();
-        animal2.displayInfo();
-        keeper1.displayInfo();
-        keeper2.displayInfo();
+        Feeder feeder = new Feeder("Alex");
+        feeder.assignAnimal(lion);
+        feeder.assignAnimal(parrot);
+        feeder.assignAnimal(snake);
 
-        // Compare animals by age
-        if (animal1.getAge() > animal2.getAge()) {
-            System.out.println(animal1.getName() + " is older than " + animal2.getName());
-        } else {
-            System.out.println(animal2.getName() + " is older than " + animal1.getName());
-        }
+        Veterinarian vet = new Veterinarian("Dr. Smith");
+        vet.assignAnimal(lion);
+        vet.assignAnimal(snake);
+
+        feeder.performDuties();
+        vet.performDuties();
+
+        System.out.println("\nSorted by weight:");
+        zoo.sortByWeight().forEach(System.out::println);
     }
 }
