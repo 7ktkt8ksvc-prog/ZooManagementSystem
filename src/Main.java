@@ -1,33 +1,35 @@
-import java.sql.*; // 1. SQL кітапханаларын импорттау
+import java.sql.*; // 1. Import SQL libraries
 
 public class Main {
     // Database connection details
     private static final String URL = "jdbc:postgresql://localhost:5432/zoo_db";
     private static final String USER = "postgres";
     private static final String PASS = "";
-
     public static void main(String[] args) {
-        // 2. Базамен байланыс орнату
+        // 2. Establish database connection
         try (Connection connection = DriverManager.getConnection(URL, USER, PASS)) {
             System.out.println("Connected to PostgreSQL successfully!");
 
-            // 3. CREATE (Write): Жаңа жануар қосу
+            // 3. CREATE: Add a new animal
             addAnimal(connection, "Sherkhan", "Tiger", 4);
 
-            // 4. READ: Барлық жануарларды көрсету
+            // 4. READ: Display all animals
             System.out.println("\n--- List of Animals in Database ---");
             displayAnimals(connection);
 
-            // 5. UPDATE: Мәліметті жаңарту
+            // 5. UPDATE: Update animal information
             updateAnimalAge(connection, "Simba", 7);
 
+            // 6. DELETE: Remove an animal (Bonus for higher grade)
+            deleteAnimal(connection, "Sherkhan");
+
         } catch (SQLException e) {
-            // Қате болса, оны консольге шығару
-            System.err.println("Connection error: " + e.getMessage());
+            // Log connection or query errors
+            System.err.println("Database Error: " + e.getMessage());
         }
     }
 
-    // Жануар қосу әдісі
+    // Method to Add an Animal
     public static void addAnimal(Connection conn, String name, String species, int age) throws SQLException {
         String sql = "INSERT INTO animals (name, species, age) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -39,7 +41,7 @@ public class Main {
         }
     }
 
-    // Тізімді оқу әдісі
+    // Method to Read all Animals
     public static void displayAnimals(Connection conn) throws SQLException {
         String sql = "SELECT * FROM animals";
         try (Statement stmt = conn.createStatement();
@@ -53,7 +55,7 @@ public class Main {
         }
     }
 
-    // Жасын жаңарту әдісі
+    // Method to Update Animal Age
     public static void updateAnimalAge(Connection conn, String name, int newAge) throws SQLException {
         String sql = "UPDATE animals SET age = ? WHERE name = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,6 +63,18 @@ public class Main {
             pstmt.setString(2, name);
             pstmt.executeUpdate();
             System.out.println("Updated " + name + "'s age to " + newAge);
+        }
+    }
+
+    // Method to Delete an Animal (Additional CRUD feature)
+    public static void deleteAnimal(Connection conn, String name) throws SQLException {
+        String sql = "DELETE FROM animals WHERE name = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Animal deleted: " + name);
+            }
         }
     }
 }
