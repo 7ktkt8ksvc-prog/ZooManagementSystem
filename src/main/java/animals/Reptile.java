@@ -1,8 +1,17 @@
 package animals;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import interfaces.Feedable;
 
+@Entity
+@DiscriminatorValue("Reptile")
 public class Reptile extends Animal implements Feedable {
+
+    // JPA үшін бос конструктор
+    public Reptile() {
+        super();
+    }
 
     public Reptile(String name, int age, double weight) {
         super(name, age, weight);

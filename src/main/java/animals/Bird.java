@@ -1,8 +1,17 @@
 package animals;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import interfaces.Feedable;
 
+@Entity
+@DiscriminatorValue("Bird") // Базадағы "animal_type" бағанына осы мән жазылады
 public class Bird extends Animal implements Feedable {
+
+    // JPA базадан деректі оқығанда осы бос конструкторды пайдаланады
+    public Bird() {
+        super();
+    }
 
     public Bird(String name, int age, double weight) {
         super(name, age, weight);
@@ -24,4 +33,3 @@ public class Bird extends Animal implements Feedable {
         System.out.println(getName() + " was fed (seeds)");
     }
 }
-

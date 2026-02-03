@@ -1,12 +1,24 @@
 package animals;
 
+import jakarta.persistence.*; // Міндетті түрде керек
 import java.util.Objects;
 
+@Entity
+@Table(name = "animals")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "animal_type")
 public abstract class Animal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
     private int age;
-    private double weight;
+    private double weight; // Сенің кодындағы салмақ айнымалысы
+
+    // JPA үшін бос конструктор
+    protected Animal() {}
 
     protected Animal(String name, int age, double weight) {
         this.name = name;
@@ -17,9 +29,15 @@ public abstract class Animal {
     public abstract String getSpecies();
     public abstract void makeSound();
 
+    // Геттер мен сеттерлер
+    public Long getId() { return id; }
     public String getName() { return name; }
     public int getAge() { return age; }
     public double getWeight() { return weight; }
+
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setWeight(double weight) { this.weight = weight; }
 
     public void gainWeight(double amount) {
         this.weight += amount;
@@ -41,6 +59,6 @@ public abstract class Animal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name.toLowerCase(), getSpecies().toLowerCase());
+        return Objects.hash(name != null ? name.toLowerCase() : null, getSpecies() != null ? getSpecies().toLowerCase() : null);
     }
 }
